@@ -72,6 +72,7 @@
 #pragma mark - ObjectRemoovingProtocol
 - (void)removeAll:(nullable void (^)(void))completion {
     [_array removeAllObjects];
+    _count = _array.count;
     if (completion) {
         completion();
     }
