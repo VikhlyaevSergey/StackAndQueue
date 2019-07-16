@@ -7,10 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CollectionsViewController.h"
 
 @interface StartViewController : UIViewController
-
-
 @end
 

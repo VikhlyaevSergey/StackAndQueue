@@ -31,18 +31,16 @@
 }
 
 #pragma mark - Support func-s
-@synthesize count;
-
 - (NSInteger) count {
     return _array.count;
 }
 
 - (void) addElement: (NSInteger)element withCompletion:(nullable void (^)(void))completion withFailure:(nullable void (^)(void))failure {
-    if (count < _maxSize) {
+    if (_count < _maxSize) {
         NSMutableArray* reversedArray = [_array reversed];
         [reversedArray addObject: [NSNumber numberWithInteger:element]];
         _array = [reversedArray reversed];
-        count = _array.count;
+        _count = _array.count;
         if (completion) {
             completion();
         }
@@ -54,9 +52,9 @@
 }
 
 - (void) removeElement: (nullable void (^)(void))completion withFailure:(nullable void (^)(void))failure {
-    if (count > 0) {
+    if (_count > 0) {
         [_array removeObjectAtIndex:0];
-        count = _array.count;
+        _count = _array.count;
         if (completion) {
             completion();
         }
@@ -75,7 +73,7 @@
 #pragma mark - ObjectRemoovingProtocol
 - (void)removeAll:(nullable void (^)(void))completion {
     [_array removeAllObjects];
-    count = _array.count;
+    _count = _array.count;
     if (completion) {
         completion();
     }

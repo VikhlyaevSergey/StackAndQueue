@@ -30,16 +30,14 @@
 }
 
 #pragma mark - Support func-s
-@synthesize count;
-
 - (NSInteger) count {
     return _array.count;
 }
 
 - (void)addElement: (NSInteger)element withCompletion:(nullable void (^)(void))completion {
-    if (count < _maxSize) {
+    if (_count < _maxSize) {
         [_array addObject: [NSNumber numberWithInteger:element]];
-        count = _array.count;
+        _count = _array.count;
         if (completion) {
             completion();
         }
@@ -60,7 +58,7 @@
 #pragma mark - ObjectsRemovingProtocol
 - (void)removeAll: (nullable void (^)(void))completion {
     [_array removeAllObjects];
-    count = _array.count;
+    _count = _array.count;
     if (completion) {
         completion();
     }
