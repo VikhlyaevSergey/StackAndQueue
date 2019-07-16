@@ -14,6 +14,8 @@
 
 @property (strong, nonatomic)  NSMutableArray* array;
 
+@property (assign, nonatomic)  NSInteger maxSize; // Max size of collection
+
 @end
 
 @implementation QueueObject
@@ -21,22 +23,23 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
+        _maxSize = 5;
         _array = [NSMutableArray new];
     }
     return self;
 }
 
 #pragma mark - Support func-s
-@synthesize count = _count;
+@synthesize count;
 
 - (NSInteger) count {
     return _array.count;
 }
 
 - (void)addElement: (NSInteger)element withCompletion:(nullable void (^)(void))completion {
-    if (_count < 5) {
+    if (count < _maxSize) {
         [_array addObject: [NSNumber numberWithInteger:element]];
-        _count = _array.count;
+        count = _array.count;
         if (completion) {
             completion();
         }
@@ -57,7 +60,7 @@
 #pragma mark - ObjectsRemovingProtocol
 - (void)removeAll: (nullable void (^)(void))completion {
     [_array removeAllObjects];
-    _count = _array.count;
+    count = _array.count;
     if (completion) {
         completion();
     }

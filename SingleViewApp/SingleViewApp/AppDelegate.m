@@ -31,8 +31,8 @@
     UINavigationController* navigationController = [UINavigationController new];
     StartViewController* startVC = [StartViewController new];
     navigationController.viewControllers = @[startVC];
-    _window.rootViewController = navigationController;
-    [_window makeKeyAndVisible];
+    self.window.rootViewController = navigationController;
+    [self.window makeKeyAndVisible];
 }
 
 @end

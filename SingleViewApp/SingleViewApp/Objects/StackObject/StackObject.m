@@ -14,6 +14,8 @@
 
 @property (strong, nonatomic)  NSMutableArray* array;
 
+@property (assign, nonatomic)  NSInteger maxSize; // Max size of collection
+
 @end
 
 
@@ -22,24 +24,25 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
+        _maxSize = 5;
         _array = [NSMutableArray new];
     }
     return self;
 }
 
 #pragma mark - Support func-s
-@synthesize count = _count;
+@synthesize count;
 
 - (NSInteger) count {
     return _array.count;
 }
 
 - (void) addElement: (NSInteger)element withCompletion:(nullable void (^)(void))completion withFailure:(nullable void (^)(void))failure {
-    if (_count < 5) {
+    if (count < _maxSize) {
         NSMutableArray* reversedArray = [_array reversed];
         [reversedArray addObject: [NSNumber numberWithInteger:element]];
         _array = [reversedArray reversed];
-        _count = _array.count;
+        count = _array.count;
         if (completion) {
             completion();
         }
@@ -51,9 +54,9 @@
 }
 
 - (void) removeElement: (nullable void (^)(void))completion withFailure:(nullable void (^)(void))failure {
-    if (_count > 0) {
+    if (count > 0) {
         [_array removeObjectAtIndex:0];
-        _count = _array.count;
+        count = _array.count;
         if (completion) {
             completion();
         }
@@ -72,7 +75,7 @@
 #pragma mark - ObjectRemoovingProtocol
 - (void)removeAll:(nullable void (^)(void))completion {
     [_array removeAllObjects];
-    _count = _array.count;
+    count = _array.count;
     if (completion) {
         completion();
     }
